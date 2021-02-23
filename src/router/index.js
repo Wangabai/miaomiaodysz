@@ -7,16 +7,16 @@ import mineRouter from './mine'
 Vue.use(VueRouter)
 
 export default new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    movieRouter,
-    cinemaRouter,
-    mineRouter,
-    {
-      path: '/',
-      redirect: '/movie'
-    }
-  ]
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        movieRouter,
+        cinemaRouter,
+        mineRouter,
+        {
+            path: '/',
+            redirect: '/movie'
+        }
+    ]
 })
 
