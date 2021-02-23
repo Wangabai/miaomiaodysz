@@ -13,9 +13,9 @@
         <div class="btn_pre">预售</div>
       </li> -->
       <li v-for="item in comingList" :key="item.id">
-        <div class="pic_show"><img :src="item.img | setWH('128.180')" /></div>
+        <div class="pic_show" @tap="handleToDetail(item.id)"></div>img :src="item.img | setWH('128.180')" /></div>
         <div class="info_list">
-          <h2>
+          <h2  @tap="handleToDetail(item.id)">
             {{ item.nm }}<img v-if="item.version" src="@/assets/logo.png" />
           </h2>
           <p>
@@ -33,19 +33,31 @@
 <script>
 export default {
   name: "ComingSoon",
-  data() {
+  data () {
     return {
       comingList: [],
+      isLoading: true,
+      prevCityId: -1
     };
   },
-  mounted() {
+  actived () {
+    var cityId = this.$store / state / city.id;
+    if (this.prevCityId === cityId) { return; }
+    this.isLoading = true;
     this.axios.get("/api/movieComingList?cityId=10").then((res) => {
       var msg = res.data.msg;
       if (msg === "ok") {
         this.comingList = res.data.data.comingList;
+        this.isLoading = false;
+        this.prevCityId = cityId;
       }
     });
   },
+  methods: {
+    handleToDetail (movieId) {
+      this.$router.push('/movie/detail/2/' + movieId);
+    }
+  }
 };
 </script>
 <style scoped>
